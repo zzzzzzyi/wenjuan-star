@@ -1,47 +1,188 @@
-### 本资源由 itjc8.com 收集整理
-# Getting Started with Create React App
+# 📋 问卷系统 (Wenjuan)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **一个功能完整的在线问卷调查系统，支持问卷创建、编辑、发布、答卷收集与数据统计。**
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📑 目录
 
-### `npm start`
+- [项目简介](#项目简介)
+- [技术栈](#技术栈)
+- [功能特性](#功能特性)
+- [项目结构](#项目结构)
+- [快速开始](#快速开始)
+- [API 接口文档](#api-接口文档)
+- [核心设计亮点](#核心设计亮点)
+- [界面截图](#界面截图)
+- [许可证](#许可证)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🎯 项目简介
 
-### `npm test`
+本项目是一个**全栈在线问卷系统**，灵感来源于腾讯问卷、问卷星等产品。用户可以在线创建问卷、拖拽编辑组件、发布问卷收集答案，并查看答卷数据统计。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> 💡 **适用场景**：市场调研、用户反馈收集、考试测评、活动报名等。
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠 技术栈
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 前端（`/fe`）
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| 技术                | 说明               |
+| ------------------- | ------------------ |
+| **React 18**        | UI 框架            |
+| **TypeScript**      | 类型安全           |
+| **React Router v6** | 路由管理           |
+| **Redux Toolkit**   | 全局状态管理       |
+| **Ant Design 5**    | UI 组件库          |
+| **ahooks**          | React Hooks 工具库 |
+| **@dnd-kit**        | 拖拽排序           |
 
-### `npm run eject`
+### 后端（`/server`）
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| 技术                  | 说明                        |
+| --------------------- | --------------------------- |
+| **Node.js**           | 运行环境                    |
+| **MongoDB**           | 数据库                      |
+| **JWT **      | 已安装，可扩展              |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 数据库
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+| 集合      | 说明                 |
+| --------- | -------------------- |
+| `users`   | 用户表               |
+| `surveys` | 问卷表（含组件列表） |
+| `answers` | 答卷表               |
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## ✨ 功能特性
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 📝 问卷管理
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- ✅ **创建问卷** — 快速创建空白问卷
+- ✅ **编辑问卷** — 可视化拖拽编辑，所见即所得
+- ✅ **复制问卷** — 一键复制已有问卷
+- ✅ **发布/下架** — 控制问卷发布状态
+- ✅ **回收站** — 软删除，可恢复
+
+### 🧩 组件系统
+
+- **输入框** — 短文本输入
+- **文本域** — 长文本输入
+- **单选框** — 单选选项
+- **多选框** — 多选选项
+- **标题** — 段落标题
+- **段落** — 纯文本段落
+- **信息** — 提示信息卡片
+
+### 📊 数据统计
+
+- ✅ **答卷列表** — 查看所有提交的答卷
+- ✅ **组件统计** — 对单选框、多选框进行选项分布统计
+
+### 👤 用户系统
+
+- ✅ **注册/登录** — 用户认证
+- ✅ **Token 鉴权** — Bearer Token 方式
+
+---
+
+## 🚀 快速开始
+### 1️⃣ 克隆项目
+
+```bash
+git clone 
+cd wenjuan
+```
+
+### 2️⃣ 启动后端
+
+```bash
+cd server
+
+# 安装依赖
+npm install
+
+# 确保本地 MongoDB 已启动（默认端口 27017）
+
+# 启动开发服务
+npm run dev
+
+# 服务运行在 http://localhost:3001
+```
+
+### 3️⃣ 启动前端
+
+```bash
+cd fe
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm start
+
+# 打开浏览器访问 http://localhost:3000
+```
+
+---
+
+## 📡 API 接口文档
+
+### 用户接口
+
+| 方法 | 路径                 | 说明         | 请求体                                    |
+| ---- | -------------------- | ------------ | ----------------------------------------- |
+| POST | `/api/user/register` | 注册         | `{ username, password, nickname? }`       |
+| POST | `/api/user/login`    | 登录         | `{ username, password }`                  |
+| GET  | `/api/user/info`     | 获取用户信息 | Header: `Authorization: Bearer token_xxx` |
+
+### 问卷接口
+
+| 方法   | 路径                          | 说明                                                                      |
+| ------ | ----------------------------- | ------------------------------------------------------------------------- |
+| POST   | `/api/question`               | 创建问卷                                                                  |
+| GET    | `/api/question`               | 获取问卷列表（支持 `page`、`pageSize`、`isDeleted`、`isStar`、`keyword`） |
+| GET    | `/api/question/:id`           | 获取问卷详情                                                              |
+| PATCH  | `/api/question/:id`           | 更新问卷（发布、标星等）                                                  |
+| DELETE | `/api/question/:id`           | 软删除（移入回收站）                                                      |
+| POST   | `/api/question/duplicate/:id` | 复制问卷                                                                  |
+| DELETE | `/api/question`               | 批量永久删除 `{ ids: [...] }`                                             |
+
+### 答案接口
+
+| 方法 | 路径                                 | 说明             |
+| ---- | ------------------------------------ | ---------------- |
+| POST | `/api/answer`                        | 提交答卷         |
+| GET  | `/api/answer/:questionId`            | 获取答卷列表     |
+| GET  | `/api/answer/:questionId/stat/:feId` | 获取组件统计数据 |
+
+---
+
+## 💡 核心设计亮点
+
+### 1️⃣ 拖拽编辑
+
+使用 `@dnd-kit` 实现问卷组件的拖拽排序，用户可以自由调整组件顺序，拖拽时会有平滑的动画过渡效果。
+
+### 2️⃣ 撤销与重做
+
+基于操作流（Command Pattern）实现编辑操作的撤销/重做，通过操作抽象 + 双栈结构实现状态回溯，并通过操作合并优化连续编辑场景，在保证性能的同时提升了用户体验和系统扩展性。
+
+### 3️⃣ 软删除机制
+
+删除问卷时使用 `isDeleted` 标记，而非物理删除。回收站中的问卷可以恢复，只有「批量删除」才是真正的物理删除，保障数据安全。
+
+
+### 5️⃣ Token 鉴权
+
+采用 Bearer Token 方案，登录后服务端返回 `token_用户ID`，前端在请求头携带此 token 进行身份验证。
+
+### 6️⃣ 分页与搜索
+
+所有列表接口均支持标准分页（`page`、`pageSize`）和关键词搜索（`keyword`），前端使用 ahooks 的 `useRequest` 管理请求状态。
+
+**如果这个项目对你有帮助，欢迎 Star ⭐ 支持！**
